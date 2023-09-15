@@ -1,0 +1,92 @@
+Libreria da includere a tutti i costi :
+#include <typeinfo>
+
+Overloading dell'operatore <<
+Nella Classe A, public:
+
+virtual ostream& put (ostream& os) {
+       Se dobbiamo stampare il tipo:
+       os << typeid(*this).name() << ", ";
+       Per stampare i vettori :
+       for (int i=0; i<DIM; i++){
+        os << vett[i] << " ";
+       }
+       return os;
+}
+
+All'esterno della Classe A :
+
+ostream& operator<<(ostream& os, A& obj) {
+    return obj.put(os);
+}
+
+Operatore []
+
+Prima mettiamo la reference del tipo del vettore, supponiamo sia double...poi l'indice short o int
+double& operator[] (int i) {
+    nome vettore [i % lunghezza private]
+    return vett [i % len];
+
+Operatore ()
+Un esempio con due interi in input e deve restituire somma
+
+int operator()(int i1, int i2) {
+    somma = 0;
+    for (int i=0; i<len && i <= i2; i++){                       i1 < o <= in base al risultato del prof
+        somma += vec[i];
+    }
+    return somma;
+}
+
+Operatore ++
+Prefisso (non mettere alcuna variabile sentinella all'interno della parentesi tonda)
+Per esempio per la classe C
+C* operator++() {
+    ++y;
+    return this;
+}
+
+per la stampa :
+
+cout << *(++(*((C*)vett[un numero basta che sia della classe C]))) << endl;
+oppure 
+cout << *(++(*(dynamic_cast<C*>(vett[...])))) << endl;
+
+PostFisso
+
+C* operator++(int) {
+    y++;
+    return this;
+}
+
+cout << *((*((C*)vett[un numero basta che sia della classe C]))++) << endl;
+
+Modo Alternativo :
+Questo dentro la classe
+friend A* operator++(B& obj, int);
+Questo fuori
+A* operator++(B& obj, int) {
+    obj.p++;
+    return &obj;
+}
+
+Per stampare la P nel tipo basta togliere * dal this
+
+Esempio alternativo per come usare l'operatore [] : 
+
+cout << "*vett[40] = " << *vett[40] << endl;
+cout << "((B*)vett[40])->operator[](40) = " << ((B*)vett[40])->operator[](40) << endl;
+((B*)vett[40])->operator[](40) = 888;
+cout << "Nuovo ((B*)vett[40])->operator[](40) = " << ((B*)vett[40])->operator[](40) << endl;
+cout << "Nuovo *vett[40] = " << *vett[40];
+
+
+Elementi double compresi tra a e b, IMPORTANTE!
+vec[i] = a + ((double)rand() / RAND_MAX) * (b - a + 1);
+
+Es. abbiamo un array di puntatori int **array = new int *[DIM];
+                                    for (int i=0; i<DIM; i++) {
+                                        array[i] = new int;
+                                    }
+int *a = matrice[i]; 
+oppure... int a = matrice[i][0];
